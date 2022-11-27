@@ -24,12 +24,6 @@ df_new <- merged_df[, c(1:2, seq(3, ncol(merged_df), 3))]
 colnames(df_new) <- c("Studentnummer", "Naam", paste0("Les ", 
                                                       rep(seq_along(files_to_read))))
 df_new$mean <- rowMeans(df_new[3:length(df_new)])
+df_new$Beoordeling <- ifelse(apply(df_new[3:8], 1, function(x) any(x < 50)) == T,
+                             "Onvoldoende", "Voldoende")
 
-for(row in rownames(df_new)) {
-  each_row <- df_new[row,]
-  for(i in each_row[3:length(each_row)]) {
-    print(i)
-    #ifelse(i < 50, df_new$Opmerking <- "Onvoldoende", "Voldoende")
-    ifelse(i < 50, print("Onvoldoende"), print("Voldoende"))
-  }
-}
