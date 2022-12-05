@@ -141,7 +141,7 @@ def write_xlsx(students, outFile):
         colnames = []
         for i in headers:
             colnames.append({'header': i})
-        worksheet.add_table(0, 0, row_num - 1, col_num, {'columns': colnames})
+        worksheet.add_table(0, 0, row_num, col_num, {'columns': colnames})
         workbook.close()
     finally:
         ofile.close()
