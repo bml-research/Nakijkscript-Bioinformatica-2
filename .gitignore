@@ -1,0 +1,7 @@
+# ignore ALL .log files
+*.xlsx
+*.xls
+
+
+# ignore ALL files in ANY directory named temp
+temp/
