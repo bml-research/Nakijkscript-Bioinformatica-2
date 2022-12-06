@@ -51,7 +51,10 @@ def create_student_list(data, answer_model):
     questions = []
     for i in columns:
         if i.startswith("Question"):
-            questions.append(i.split("\xa0")[-1].strip())
+            question = i
+            #question = i.split("\xa0")[-1].strip()
+            questions.append(question)
+    #print(questions)
     for index, row in data.iterrows():
         row = list(row)
         time_start = row[1]
@@ -116,7 +119,6 @@ def write_xlsx(students, outFile):
             data.append(student['time_start'])
             data.append(student['time_stop'])
             data.append(len(student['answers']))
-            #data.append(sum(student['scores']))
             cells = ",".join([i + str(num+2) for i in cell_letters])
             data.append(f"=sum({cells})") 
             data.append("=H" + str(num + 2) + "/" + str(num_of_questions) + "*100") 
@@ -130,14 +132,6 @@ def write_xlsx(students, outFile):
         for row_num, row_data in enumerate(results_list):
             for col_num, col_data in enumerate(row_data):
                 worksheet.write(row_num, col_num, col_data)
-        # keep the following code in because I am not sure if the above code in the for loop will work to create Excel files.
-        # the code above is without the worksheet.write function
-        # the following is with the worksheet.write function but then a new for loop is used
-        # for i in range(len(students)):
-        #     dest = 'H' + str(i+2)            
-        #     cells = [j + str(i+2) for j in cell_letters]
-        #     formula = f'=sum({",".join(cells)})'
-        #     worksheet.write_formula(dest, formula)
         colnames = []
         for i in headers:
             colnames.append({'header': i})
